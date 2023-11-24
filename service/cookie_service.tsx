@@ -1,10 +1,10 @@
 import Cookies from 'js-cookie';
 
-export const setCookie = (name: string, value: string, options?: Cookies.CookieAttributes) => {
-    Cookies.set(name, value, { /* secure: true,*/ signed: true, expires: 7, sameSite: 'lax' });
+export const setCookie = (name: string, value: string) => {
+    Cookies.set(name, value, { /* secure: true,*/ signed: true, expires: 7 });
 };
 
-export const getCookie = (name: string, options?: Cookies.CookieAttributes) => {
+export const getCookie = (name: string) => {
     return Cookies.get(name);
 };
 
