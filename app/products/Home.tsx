@@ -1,6 +1,5 @@
-'use client';
 import { Layouts } from '@/components/layouts/layouts';
-import { faAnglesLeft, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesLeft, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Home() {

@@ -1,6 +1,7 @@
 'use client';
 
 import { Layouts } from '@/components/layouts/layouts';
+import { ProductRemoteDatasource } from '@/data/datasource/remote/products_remote_datasource';
 import {
     faAnglesLeft,
     faAnglesRight,
@@ -8,8 +9,16 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect } from 'react';
 
 export default function Home() {
+    useEffect(() => {
+        const fetchUser = async () => {
+            const resp = await ProductRemoteDatasource.getProducts();
+        };
+
+        fetchUser();
+    });
     return (
         <Layouts>
             <div>

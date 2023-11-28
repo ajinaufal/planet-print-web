@@ -1,4 +1,4 @@
-import { SidebarModelComponent } from '@/models/components/sidebar_model_component';
+import { SidebarModelComponent } from '@/data/models/components/sidebar_model_component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faPrint } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
