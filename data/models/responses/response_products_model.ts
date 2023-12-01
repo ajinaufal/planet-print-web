@@ -20,8 +20,8 @@ interface ProductModel {
 }
 
 interface ResponseProductModel {
-    message: string;
-    data: ProductModel[];
+    message: string | undefined;
+    data: ProductModel[] | [];
 }
 
 export type { ResponseProductModel };

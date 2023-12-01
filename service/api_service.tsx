@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosStatic } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios';
 import { getCookie } from './cookie_service';
 
 class ApiService {
@@ -26,20 +26,35 @@ class ApiService {
         );
     }
 
-    public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.get(url, config).then((response) => response.data);
+    public async get(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<any, any>> {
+        const response = this.axiosInstance.get(url, config);
+        return response;
     }
 
-    public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.post(url, data, config).then((response) => response.data);
+    public async post(
+        url: string,
+        data?: any,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<any, any>> {
+        const response = this.axiosInstance.post(url, data, config);
+        return response;
     }
 
-    public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.put(url, data, config).then((response) => response.data);
+    public async put(
+        url: string,
+        data?: any,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<any, any>> {
+        const response = this.axiosInstance.put(url, data, config);
+        return response;
     }
 
-    public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosInstance.delete(url, config).then((response) => response.data);
+    public async delete(
+        url: string,
+        config?: AxiosRequestConfig
+    ): Promise<AxiosResponse<any, any>> {
+        const response = this.axiosInstance.delete(url, config);
+        return response;
     }
 }
 
