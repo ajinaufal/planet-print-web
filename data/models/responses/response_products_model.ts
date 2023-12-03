@@ -24,4 +24,4 @@ interface ResponseProductModel {
     data: ProductModel[] | [];
 }
 
-export type { ResponseProductModel };
+export type { ResponseProductModel, ProductModel, CategoryModel };

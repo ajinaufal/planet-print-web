@@ -1,16 +1,33 @@
 'use client';
+import { LoginRequestEntities } from '@/domain/entities/request/login_request';
+import { AuthUsecase } from '@/domain/usecase/auth_usecase';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        const params = new LoginRequestEntities({
+            email: email,
+            password: password,
+            remember: false,
+        });
+
+        const validations = params.validation();
+        if (validations.length == 0) {
+            setLoading(true);
+            const useCaseLogin = await AuthUsecase.login(params);
+            setLoading(false);
+            if (useCaseLogin.isRight()) router.push('/products');
+        }
     };
 
     return (

@@ -2,6 +2,9 @@
 
 import { Layouts } from '@/components/layouts/layouts';
 import { ProductRemoteDatasource } from '@/data/datasource/remote/products_remote_datasource';
+import { ProductRequestEntities } from '@/domain/entities/request/product_request';
+import { ProductEntities } from '@/domain/entities/response/product_entities';
+import { ProductUsecase } from '@/domain/usecase/product_usecase';
 import {
     faAnglesLeft,
     faAnglesRight,
@@ -9,16 +12,24 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-    useEffect(() => {
-        const fetchUser = async () => {
-            const resp = await ProductRemoteDatasource.getProducts();
-        };
+    const [products, setProducts] = useState<ProductEntities[]>([]);
 
-        fetchUser();
-    });
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    const fetchProducts = async () => {
+        const product = await ProductUsecase.listProduct(new ProductRequestEntities());
+        if (product.isRight()) setProducts(product.value.data);
+    };
+
+    const deleteProduct = async () => {
+        
+    }
+
     return (
         <Layouts>
             <div>
@@ -29,52 +40,80 @@ export default function Home() {
                                 IMAGES
                             </th>
                             <th scope="col" className="px-1 py-1 whitespace-nowrap">
-                                CATEGORY NAME
+                                NAME
                             </th>
                             <th scope="col" className="px-1 py-1 whitespace-nowrap">
-                                SLUG
+                                CATEGORY
                             </th>
                             <th scope="col" className="px-1 py-1 whitespace-nowrap">
-                                STATUS
+                                PRICE
                             </th>
                             <th scope="col" className="px-1 py-1 whitespace-nowrap">
+                                STOCK
+                            </th>
+                            <th scope="col-2" className="px-1 py-1 whitespace-nowrap">
                                 ACTIONS
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td
-                                scope="col"
-                                className="px-1 py-1 rounded-l-xl bg-white border-slate-300 shadow-[20px_3px_20px_#0000000b] px-5 py-3"
-                            >
-                                asdasd
-                            </td>
-                            <td
-                                scope="col"
-                                className="px-1 py-1 bg-white border-slate-300 shadow-[20px_3px_20px_#0000000b] px-5 py-3"
-                            >
-                                basdas
-                            </td>
-                            <td
-                                scope="col"
-                                className="px-1 py-1 bg-white border-slate-300 shadow-[20px_3px_20px_#0000000b] px-5 py-3"
-                            >
-                                absj
-                            </td>
-                            <td
-                                scope="col"
-                                className="px-1 py-1 bg-white border-slate-300 shadow-[20px_3px_20px_#0000000b] px-5 py-3"
-                            >
-                                lasdkh
-                            </td>
-                            <td
-                                scope="col"
-                                className="px-1 py-1 rounded-r-xl bg-white border-slate-300 shadow-[20px_3px_20px_#0000000b] px-5 py-3"
-                            >
-                                asdjaw
-                            </td>
-                        </tr>
+                        {products.map((product, index) => {
+                            return (
+                                <tr key={product.token}>
+                                    <td
+                                        scope="col"
+                                        className="px-1 py-1 rounded-l-xl bg-white border-slate-300 shadow px-5 py-3 "
+                                    >
+                                        <div className="flex flex-row">
+                                            {product.photo.map((image, i) => (
+                                                <div
+                                                    key={i}
+                                                    className={
+                                                        'w-9 h-9 relative' + (i > 0 ? ' -ml-5' : '')
+                                                    }
+                                                >
+                                                    <img
+                                                        src={'http://localhost:4000' + image}
+                                                        alt={i.toString()}
+                                                        className="shadow absolute w-full h-full object-cover rounded-full border"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </td>
+                                    <td
+                                        scope="col"
+                                        className="px-1 py-1 bg-white border-slate-300 shadow px-5 py-3 text-left"
+                                    >
+                                        {product.title}
+                                    </td>
+                                    <td
+                                        scope="col"
+                                        className="px-1 py-1 bg-white border-slate-300 shadow px-5 py-3"
+                                    >
+                                        {product.category.name}
+                                    </td>
+                                    <td
+                                        scope="col"
+                                        className="px-1 py-1 bg-white border-slate-300 shadow px-5 py-3"
+                                    >
+                                        {product.price}
+                                    </td>
+                                    <td
+                                        scope="col"
+                                        className="px-1 py-1 bg-white border-slate-300 shadow px-5 py-3"
+                                    >
+                                        {product.stocks}
+                                    </td>
+                                    <td
+                                        scope="col-2"
+                                        className="px-1 py-1 rounded-r-xl bg-white border-slate-300 shadow px-5 py-3"
+                                    >
+                                        <button>Delete</button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
                 <div className="w-full flex flex-wrap sm:flex-row sm:flex-nowrap items-center">

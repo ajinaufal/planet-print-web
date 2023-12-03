@@ -1,12 +1,11 @@
 import { Either, left, right } from '@/service/either_service';
 import { AuthRemoteDatasource } from '../datasource/remote/auth_remote_datasource';
-import { RequestProductsModel } from '../models/requests/request_products_model';
 import { ResponseFailedModel } from '../models/responses/response_failed_model';
-import { ResponseLoginModel } from '../models/responses/response_login_model';
-import { LoginEntites } from '@/domain/entities/login_entities';
+import { LoginEntites } from '@/domain/entities/response/login_entities';
+import { RequestLoginModel } from '../models/requests/request_login_model';
 
-export class LoginRepository {
-    async login(params: RequestProductsModel): Promise<Either<Error, LoginEntites>> {
+export class AuthRepository {
+    async login(params: RequestLoginModel): Promise<Either<Error, LoginEntites>> {
         try {
             const loginModel = await AuthRemoteDatasource.postLogin(params);
             if (loginModel instanceof Error) return left(loginModel);
@@ -14,7 +13,7 @@ export class LoginRepository {
         } catch (e) {
             const error: ResponseFailedModel = {
                 name: 'Repository Error',
-                message: 'An error occurred in the repository',
+                message: `${e}`,
                 status: 500,
             };
             return left(error);
