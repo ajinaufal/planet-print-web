@@ -2,7 +2,7 @@ import { RequestLoginModel } from '@/data/models/requests/request_login_model';
 import { ValidationHelper } from '@/helper/validation_helpers';
 
 export class LoginRequestEntities {
-    public email: string;
+    email: string;
     password: string;
     remember: boolean;
     constructor(private readonly data: RequestLoginModel) {

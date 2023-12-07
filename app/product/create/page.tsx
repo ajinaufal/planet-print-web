@@ -60,6 +60,8 @@ export default function Products() {
         setSelectedImages(images);
     };
 
+    const createSubmit = () => {};
+
     return (
         <Layouts>
             <div className="bg-white p-3 shadow-md border border-slate-200 rounded-md mt-6">
