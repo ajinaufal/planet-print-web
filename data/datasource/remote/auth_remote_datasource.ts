@@ -7,9 +7,7 @@ import ApiService from '@/service/api_service';
 const apiService = new ApiService();
 
 class AuthRemoteDatasource {
-    static async postLogin(
-        params: RequestLoginModel
-    ): Promise<ResponseLoginModel | ResponseFailedModel> {
+    static async postLogin(params: RequestLoginModel): Promise<ResponseLoginModel> {
         try {
             const resp = await apiService.post('/v1/login', params);
             if (resp.status === 200) return resp.data;

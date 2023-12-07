@@ -1,7 +1,7 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { v4 as uuidv4 } from 'uuid';
 
-export class SidebarModelComponent {
+export class SidebarEtitiesComponent {
     menus: {
         label: string;
         icon: IconDefinition;
@@ -20,7 +20,7 @@ export class SidebarModelComponent {
         const { menus = [] } = data;
         this.menus = menus.map(
             (data) =>
-                new SidebarMenusModelComponent({
+                new SidebarMenusEntitiesComponent({
                     label: data.label,
                     icon: data.icon,
                     link: data.link || '/',
@@ -30,7 +30,7 @@ export class SidebarModelComponent {
     }
 }
 
-export class SidebarMenusModelComponent {
+export class SidebarMenusEntitiesComponent {
     key: string | undefined;
     label: string;
     icon: IconDefinition;

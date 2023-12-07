@@ -64,6 +64,8 @@ export function Layouts({
                     crossOrigin="anonymous"
                     referrerPolicy="no-referrer"
                 />
+
+                <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
             </Head>
             <body>
                 <div className="sm:flex bg-[#EC5800]/[.2]">

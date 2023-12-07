@@ -26,7 +26,7 @@ export default function login() {
             setLoading(true);
             const useCaseLogin = await AuthUsecase.login(params);
             setLoading(false);
-            if (useCaseLogin.isRight()) router.push('/products');
+            if (useCaseLogin.isRight()) router.push('/product');
         }
     };
 

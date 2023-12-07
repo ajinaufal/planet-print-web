@@ -10,10 +10,8 @@ export class ResponseProductEntities {
     data: ProductEntities[] = [];
 
     constructor(data: ResponseProductModel) {
-        if (!(data instanceof Error)) {
-            this.data = (data.data || []).map((product) => new ProductEntities(product));
-            this.message = data.message;
-        }
+        this.data = (data.data || []).map((product) => new ProductEntities(product));
+        this.message = data.message;
     }
 }
 

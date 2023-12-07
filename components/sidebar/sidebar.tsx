@@ -1,4 +1,4 @@
-import { SidebarModelComponent } from '@/data/models/components/sidebar_model_component';
+import { SidebarEtitiesComponent } from '@/domain/entities/components/sidebar_model_component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faPrint } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function SideBar({ pathname }: { pathname: string }) {
-    const data = new SidebarModelComponent({
+    const data = new SidebarEtitiesComponent({
         menus: [
             { label: 'Dashboard', icon: faHouse, link: '/dashboard' },
             { label: 'Product', icon: faPrint, link: '/products' },

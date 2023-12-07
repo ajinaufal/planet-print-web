@@ -1,7 +1,6 @@
 'use client';
 
 import { Layouts } from '@/components/layouts/layouts';
-import { ProductRemoteDatasource } from '@/data/datasource/remote/products_remote_datasource';
 import { ProductRequestEntities } from '@/domain/entities/request/product_request';
 import { ProductEntities } from '@/domain/entities/response/product_entities';
 import { ProductUsecase } from '@/domain/usecase/product_usecase';
@@ -14,7 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 
-export default function Home() {
+export default function Products() {
     const [products, setProducts] = useState<ProductEntities[]>([]);
 
     useEffect(() => {
@@ -26,13 +25,17 @@ export default function Home() {
         if (product.isRight()) setProducts(product.value.data);
     };
 
-    const deleteProduct = async () => {
-        
-    }
-
     return (
         <Layouts>
             <div>
+                <div className="flex flex-row mt-8">
+                    <a
+                        href="/product/create"
+                        className="shadow-md mr-2 bg-[#EC5800] px-3 py-2 rounded-md text-white text-sm cursor-pointer"
+                    >
+                        Create Product
+                    </a>
+                </div>
                 <table className="table border-separate border-b-0 mt-2 w-full text-center text-sm font-light border-spacing-y-3 border-spacing-x-0">
                     <thead>
                         <tr>
