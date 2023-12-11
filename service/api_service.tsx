@@ -4,13 +4,14 @@ import { useRouter } from 'next/router';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
+    private contentType: string = 'application/json';
 
     constructor() {
         this.axiosInstance = axios.create({
             baseURL: 'http://127.0.0.1:4000/api',
             timeout: 5000,
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': this.contentType,
                 'secret-key': process.env.API_KEY,
                 Authorization: getCookie('token'),
             },

@@ -12,12 +12,12 @@ export class ProductUsecase {
     static async listProduct(
         params: ProductRequestEntities
     ): Promise<Either<Error, ResponseProductEntities>> {
-        return await productRepository.product(params.toModel());
+        return await productRepository.product(params);
     }
 
-    async productCreate(
+    static async productCreate(
         params: ProductCreateRequestEntities
     ): Promise<Either<Error, ResponseProductCreateEntities>> {
-        return await productRepository.productCreate(params.toModel());
+        return await productRepository.productCreate(params);
     }
 }

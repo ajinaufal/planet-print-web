@@ -2,31 +2,34 @@
 import { LoginRequestEntities } from '@/domain/entities/request/login_request';
 import { AuthUsecase } from '@/domain/usecase/auth_usecase';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
 export default function login() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const params = new LoginRequestEntities({
-            email: email,
-            password: password,
-            remember: false,
-        });
+        try {
+            const params = new LoginRequestEntities({
+                email: email,
+                password: password,
+                remember: false,
+            });
 
-        const validations = params.validation();
-        if (validations.length == 0) {
-            setLoading(true);
-            const useCaseLogin = await AuthUsecase.login(params);
-            setLoading(false);
-            if (useCaseLogin.isRight()) router.push('/product');
+            console.log('params : ', params);
+
+            if (params.validation().length == 0) {
+                const useCaseLogin = await AuthUsecase.login(params);
+                if (useCaseLogin.isRight()) router.push('/product');
+            }
+        } catch (error) {
+            console.error('error : ', error);
         }
     };
 

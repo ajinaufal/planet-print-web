@@ -11,11 +11,14 @@ import { CategoryUsecase } from '@/domain/usecase/category_usecase';
 import { SelectComponentEntities } from '@/domain/entities/components/select_component';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ProductUsecase } from '@/domain/usecase/product_usecase';
+import { ProductCreateRequestEntities } from '@/domain/entities/request/product_create_request';
 
 export default function Products() {
     const [inputNameProduct, setInputNameProduct] = useState('');
     const [countNameProduct, setCountNameProduct] = useState(0);
     const [inputBasePrice, setBasePriceProduct] = useState(0);
+    const [inputStock, setStockProduct] = useState(0);
     const [inputCategoryProduct, setCategoryProduct] = useState('');
     const [inputDescriptionProduct, setDescriptionProduct] = useState('');
     const [inputSpesificationProduct, setSpesificationProduct] = useState('');
@@ -60,7 +63,18 @@ export default function Products() {
         setSelectedImages(images);
     };
 
-    const createSubmit = () => {};
+    const createSubmit = async () => {
+        const params = new ProductCreateRequestEntities({
+            title: inputNameProduct,
+            price: inputBasePrice,
+            description: inputDescriptionProduct,
+            specification: inputSpesificationProduct,
+            stock: inputStock,
+            category: inputCategoryProduct,
+            images: selectedImages,
+        });
+        const usecaseCreateProduct = await ProductUsecase.productCreate(params);
+    };
 
     return (
         <Layouts>
@@ -193,7 +207,7 @@ export default function Products() {
                         'Make sure the product Spesification provides a detailed explanation of your product so that it is easy to understand and find your product. It is recommended not to enter info on mobile numbers, e-mails, etc. into the product description to protect your personal data.'
                     }
                     isRequired={true}
-                    classInputs="xl:w-full h-96 max-xl:mt-4 pb-14 xl:ml-2"
+                    classInputs="xl:w-full h-80 max-xl:mt-4 pb-20 xl:ml-2"
                     classLabel="xl:w-4/12 xl:mr-5 text-left flex flex-col text-left"
                     classFrame="flex xl:flex-row flex-col mt-6"
                 >
@@ -202,6 +216,7 @@ export default function Products() {
                         value={inputSpesificationProduct}
                     />
                 </FrameInputsComponent>
+                <button onClick={createSubmit}>Submit</button>
             </div>
         </Layouts>
     );

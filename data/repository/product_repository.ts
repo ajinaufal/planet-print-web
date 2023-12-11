@@ -1,21 +1,15 @@
 import { Either, left, right } from '@/service/either_service';
-import { RequestProductsModel } from '../models/requests/request_products_model';
-import {
-    ProductEntities,
-    ResponseProductEntities,
-} from '@/domain/entities/response/product_entities';
+import { ResponseProductEntities } from '@/domain/entities/response/product_entities';
 import { ProductRemoteDatasource } from '../datasource/remote/products_remote_datasource';
 import { ErrorHandler } from '@/domain/entities/error/server_error';
-import {
-    ResponseProductCreateDataEntities,
-    ResponseProductCreateEntities,
-} from '@/domain/entities/response/product_create';
-import { RequestCreeateProductsModel } from '../models/requests/request_create_product_model';
+import { ResponseProductCreateEntities } from '@/domain/entities/response/product_create';
+import { ProductCreateRequestEntities } from '@/domain/entities/request/product_create_request';
+import { ProductRequestEntities } from '@/domain/entities/request/product_request';
 
 export class ProductRepository {
-    async product(params: RequestProductsModel): Promise<Either<Error, ResponseProductEntities>> {
+    async product(params: ProductRequestEntities): Promise<Either<Error, ResponseProductEntities>> {
         try {
-            const getProducts = await ProductRemoteDatasource.getProducts(params);
+            const getProducts = await ProductRemoteDatasource.getProducts(params.toModel());
             return right(new ResponseProductEntities(getProducts));
         } catch (e) {
             if (e instanceof ErrorHandler) return left(e);
@@ -23,9 +17,11 @@ export class ProductRepository {
         }
     }
 
-    async productCreate(params: RequestCreeateProductsModel): Promise<Either<Error, ResponseProductCreateEntities>> {
+    async productCreate(
+        params: ProductCreateRequestEntities
+    ): Promise<Either<Error, ResponseProductCreateEntities>> {
         try {
-            const productCreate = await ProductRemoteDatasource.productCreate(params);
+            const productCreate = await ProductRemoteDatasource.productCreate(params.toFromData());
             return right(new ResponseProductCreateEntities(productCreate));
         } catch (e) {
             if (e instanceof ErrorHandler) return left(e);
