@@ -13,6 +13,7 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProductUsecase } from '@/domain/usecase/product_usecase';
 import { ProductCreateRequestEntities } from '@/domain/entities/request/product_create_request';
+import { useRouter } from 'next/navigation';
 
 export default function Products() {
     const [inputNameProduct, setInputNameProduct] = useState('');
@@ -25,6 +26,8 @@ export default function Products() {
     const [selectCategory, setSelectCategory] = useState<SelectComponentEntities[]>([]);
     const [selectedImages, setSelectedImages] = useState<File[]>([]);
     const refImageInput = useRef<HTMLInputElement | null>(null);
+
+    const router = useRouter();
 
     useEffect(() => {
         fetchCategorys();
@@ -74,6 +77,7 @@ export default function Products() {
             images: selectedImages,
         });
         const usecaseCreateProduct = await ProductUsecase.productCreate(params);
+        // if (usecaseCreateProduct.isRight()) router.push('/product');
     };
 
     return (
@@ -183,6 +187,20 @@ export default function Products() {
                         value={inputBasePrice.toString()}
                         onChange={(value: string) =>
                             setBasePriceProduct(parseInt((value || '0').replace(/[^\d.]/g, ''), 10))
+                        }
+                    />
+                </FrameInputsComponent>
+                <FrameInputsComponent
+                    title={'Stock'}
+                    isRequired={true}
+                    classInputs="w-full mt-3 xl:mt-0 flex-1 flex-col"
+                    classLabel="xl:w-3/12 xl:mr-5 text-left flex flex-col text-left"
+                    classFrame="flex xl:flex-row flex-col mt-3"
+                >
+                    <TextInputComponent
+                        value={inputStock.toString()}
+                        onChange={(value: string) =>
+                            setStockProduct(parseInt((value || '0').replace(/[^\d.]/g, ''), 10))
                         }
                     />
                 </FrameInputsComponent>

@@ -39,9 +39,7 @@ export class ProductCreateRequestEntities {
         if (this.specification) formData.append('specification', this.specification);
         if (this.stock) formData.append('stock', this.stock.toString());
         if (this.category) formData.append('category', this.category);
-        if (this.images) {
-            this.images.map((image, index) => formData.append(`images[${index}]`, image));
-        }
+        if (this.images) this.images.map((image, index) => formData.append(`images`, image));
         console.log('check from data : ', formData);
         return formData;
     }

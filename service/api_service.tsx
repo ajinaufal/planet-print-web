@@ -17,12 +17,12 @@ class ApiService {
             },
         });
 
-        axios.interceptors.response.use(
+        this.axiosInstance.interceptors.response.use(
             (response) => response,
             (error) => this.observer(error.response)
         );
 
-        axios.interceptors.request.use(
+        this.axiosInstance.interceptors.request.use(
             (config) => config,
             (error) => Promise.reject(error)
         );
@@ -34,6 +34,15 @@ class ApiService {
             router.push('/login');
         }
         return response;
+    }
+
+    public updateContentType(contentType?: string) {
+        if (contentType) {
+            const headers = this.axiosInstance.defaults.headers;
+            headers['Content-Type'] = contentType;
+            this.axiosInstance.defaults.headers = headers;
+            console.log(this.axiosInstance.defaults.headers);
+        }
     }
 
     public async get(url: string): Promise<AxiosResponse<any, any>> {

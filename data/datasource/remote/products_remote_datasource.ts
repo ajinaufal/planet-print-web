@@ -7,9 +7,9 @@ import ApiService from '@/service/api_service';
 
 class ProductRemoteDatasource {
     static async getProducts(params: RequestProductsModel): Promise<ResponseProductModel> {
-        const apiService = new ApiService();
         try {
-            const resp = await apiService.get('/v1/product');
+            const apiService = new ApiService();
+            const resp = await apiService.get('/v1/product/');
             if (resp.status === 200) return resp.data;
             throw new ErrorHandler(resp.status, resp.data.message);
         } catch (e) {
@@ -20,7 +20,9 @@ class ProductRemoteDatasource {
 
     static async productCreate(params: FormData): Promise<ResponseProductCreateModel> {
         try {
-            const resp = await new ApiService().post('/v1/product/create', params);
+            const apiService = new ApiService();
+            apiService.updateContentType('multipart/form-data');
+            const resp = await apiService.post('/v1/product/create', params);
             if (resp.status === 200) return resp.data;
             throw new ErrorHandler(resp.status, resp.data.message);
         } catch (e) {
