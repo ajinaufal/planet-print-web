@@ -1,6 +1,7 @@
 import { ResponseFailedModel } from '@/data/models/responses/response_failed_model';
 import {
     CategoryModel,
+    PhotoModel,
     ProductModel,
     ResponseProductModel,
 } from '@/data/models/responses/response_products_model';
@@ -19,7 +20,7 @@ export class ProductEntities {
     token: string;
     title: string;
     price: number;
-    photo: string[];
+    photo: PhotoEntities[];
     deskripsi: string | null;
     spesifikasi: string | null;
     updatedAt: string;
@@ -38,6 +39,25 @@ export class ProductEntities {
         this.sold = data.sold;
         this.stocks = data.stocks;
         this.category = new CategoryEntities(data.category);
+    }
+}
+
+export class PhotoEntities {
+    createdAt: Date;
+    token: string;
+    path: string;
+    name: string;
+    type: string;
+    size: string;
+    basename: string;
+    constructor(data: PhotoModel) {
+        this.createdAt = data.createdAt;
+        this.token = data.token;
+        this.path = data.path;
+        this.name = data.name;
+        this.type = data.type;
+        this.size = data.size;
+        this.basename = data.basename;
     }
 }
 

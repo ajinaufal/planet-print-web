@@ -60,7 +60,7 @@ export default function Products() {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product, index) => {
+                        {products.map((product) => {
                             return (
                                 <tr key={product.token}>
                                     <td
@@ -76,8 +76,11 @@ export default function Products() {
                                                     }
                                                 >
                                                     <img
-                                                        src={'http://localhost:4000' + image}
-                                                        alt={i.toString()}
+                                                        src={
+                                                            'http://localhost:4000/images/product/' +
+                                                            image.name
+                                                        }
+                                                        alt={image.token}
                                                         className="shadow absolute w-full h-full object-cover rounded-full border"
                                                     />
                                                 </div>

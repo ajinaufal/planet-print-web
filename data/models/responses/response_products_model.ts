@@ -10,7 +10,7 @@ interface ProductModel {
     token: string;
     title: string;
     price: number;
-    photo: string[];
+    photo: PhotoModel[];
     deskripsi: string | null;
     spesifikasi: string | null;
     updatedAt: string;
@@ -19,9 +19,19 @@ interface ProductModel {
     stocks: number;
 }
 
+interface PhotoModel {
+    createdAt: Date;
+    token: string;
+    path: string;
+    name: string;
+    type: string;
+    size: string;
+    basename: string;
+}
+
 interface ResponseProductModel {
     message: string | undefined;
     data: ProductModel[] | [];
 }
 
-export type { ResponseProductModel, ProductModel, CategoryModel };
+export type { ResponseProductModel, ProductModel, CategoryModel, PhotoModel };
