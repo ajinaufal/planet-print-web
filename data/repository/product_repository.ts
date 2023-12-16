@@ -5,6 +5,8 @@ import { ErrorHandler } from '@/domain/entities/error/server_error';
 import { ResponseProductCreateEntities } from '@/domain/entities/response/product_create';
 import { ProductCreateRequestEntities } from '@/domain/entities/request/product_create_request';
 import { ProductRequestEntities } from '@/domain/entities/request/product_request';
+import { ProductDeleteRequestEntities } from '@/domain/entities/request/product_delete_request';
+import { ResponseProductDeleteEntities } from '@/domain/entities/response/product_delete';
 
 export class ProductRepository {
     async product(params: ProductRequestEntities): Promise<Either<Error, ResponseProductEntities>> {
@@ -23,6 +25,18 @@ export class ProductRepository {
         try {
             const productCreate = await ProductRemoteDatasource.productCreate(params.toFromData());
             return right(new ResponseProductCreateEntities(productCreate));
+        } catch (e) {
+            if (e instanceof ErrorHandler) return left(e);
+            return left(new ErrorHandler(500, `${e}`, 'Repository Error'));
+        }
+    }
+
+    async productDelete(
+        params: ProductDeleteRequestEntities
+    ): Promise<Either<Error, ResponseProductDeleteEntities>> {
+        try {
+            const productDelete = await ProductRemoteDatasource.productDelete(params.toModel());
+            return right(new ResponseProductDeleteEntities(productDelete));
         } catch (e) {
             if (e instanceof ErrorHandler) return left(e);
             return left(new ErrorHandler(500, `${e}`, 'Repository Error'));

@@ -1,6 +1,11 @@
 import { SidebarEtitiesComponent } from '@/domain/entities/components/sidebar_model_component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faPrint } from '@fortawesome/free-solid-svg-icons';
+import {
+    faFileInvoiceDollar,
+    faHouse,
+    faLayerGroup,
+    faPrint,
+} from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -9,11 +14,13 @@ export default function SideBar({ pathname }: { pathname: string }) {
     const data = new SidebarEtitiesComponent({
         menus: [
             { label: 'Dashboard', icon: faHouse, link: '/dashboard' },
-            { label: 'Product', icon: faPrint, link: '/products' },
+            { label: 'Product', icon: faPrint, link: '/product' },
+            { label: 'Category', icon: faLayerGroup, link: '/category' },
+            { label: 'Transaction', icon: faFileInvoiceDollar, link: '/transaction' },
         ],
     });
     return (
-        <nav className="min-h-screen hidden sm:block sm:max-md:w-1/6 md:max-xl:w-1/4 xl:max-2xl:w-[16%] 2xl:w-[16%] overflow-x-hidden sm:py-8 md:py-12">
+        <nav className="min-h-screen hidden md:block sm:max-md:w-1/6 md:max-xl:w-1/4 xl:max-2xl:w-[16%] 2xl:w-[16%] overflow-x-hidden sm:py-8 md:py-12">
             <a href="" className="flex items-center">
                 <Image
                     className="mx-auto"

@@ -1,7 +1,7 @@
 import {
     ResponseProductCreateDataModel,
     ResponseProductCreateModel,
-} from '@/data/models/responses/response_product_create';
+} from '@/data/models/responses/response_product_create_model';
 
 export class ResponseProductCreateEntities {
     message: string | undefined;

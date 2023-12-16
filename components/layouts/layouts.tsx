@@ -68,9 +68,9 @@ export function Layouts({
                 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
             </Head>
             <body>
-                <div className="sm:flex bg-[#EC5800]/[.2]">
+                <div className="md:flex md:bg-[#EC5800]/[.2]">
                     <SideBar pathname={pathname} />
-                    <div className="sm:w-5/6 md:3/4 bg-slate-50 sm:my-4 sm:mr-4 sm:rounded-xl sm:p-4">
+                    <div className="md:w-5/6 bg-slate-50 md:my-4 md:mr-4 sm:rounded-xl sm:p-4 p-2">
                         <Header pathname={pathname} />
                         {children}
                     </div>

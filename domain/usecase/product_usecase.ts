@@ -1,10 +1,11 @@
 import { ProductRepository } from '@/data/repository/product_repository';
-import { Either } from '@/service/either_service';
+import { Either, left, right } from '@/service/either_service';
 import { ResponseProductEntities } from '../entities/response/product_entities';
 import { ProductRequestEntities } from '../entities/request/product_request';
-import { RequestCreeateProductsModel } from '@/data/models/requests/request_create_product_model';
 import { ResponseProductCreateEntities } from '../entities/response/product_create';
 import { ProductCreateRequestEntities } from '../entities/request/product_create_request';
+import { ProductDeleteRequestEntities } from '../entities/request/product_delete_request';
+import { ResponseProductDeleteEntities } from '../entities/response/product_delete';
 
 const productRepository = new ProductRepository();
 
@@ -19,5 +20,11 @@ export class ProductUsecase {
         params: ProductCreateRequestEntities
     ): Promise<Either<Error, ResponseProductCreateEntities>> {
         return await productRepository.productCreate(params);
+    }
+
+    static async productDelete(
+        params: ProductDeleteRequestEntities
+    ): Promise<Either<Error, ResponseProductDeleteEntities>> {
+        return await productRepository.productDelete(params);
     }
 }
