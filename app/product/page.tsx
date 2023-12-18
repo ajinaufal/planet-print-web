@@ -1,11 +1,14 @@
 'use client';
 
 import { Layouts } from '@/components/layouts/layouts';
-import presenterProducts from './presenterProducts';
+
 import TableProduct from './component_table';
+import presenterProducts from './presenter';
 
 export default function Products() {
-    const { listHeader, products, clickDelete } = presenterProducts();
+    const { products, listHeader, currentSize, currentPage, changeSize, clickDelete, changePage } =
+        presenterProducts();
+
     return (
         <Layouts>
             <div>
@@ -19,8 +22,13 @@ export default function Products() {
                 </div>
                 <TableProduct
                     products={products?.data || []}
-                    clickDelete={clickDelete}
                     listHeader={listHeader}
+                    changeSize={changeSize}
+                    clickDelete={clickDelete}
+                    currentSize={currentSize}
+                    totalPage={products?.pagination.totalPage || 1}
+                    currentPage={currentPage}
+                    changePage={changePage}
                 />
             </div>
         </Layouts>

@@ -1,4 +1,4 @@
-interface CategoryModel {
+export interface CategoryModel {
     token: string;
     name: string;
     photo: string;
@@ -6,7 +6,7 @@ interface CategoryModel {
     updatedAt: string;
 }
 
-interface ProductModel {
+export interface ProductModel {
     token: string;
     title: string;
     price: number;
@@ -19,7 +19,7 @@ interface ProductModel {
     stocks: number;
 }
 
-interface PhotoModel {
+export interface PhotoModel {
     createdAt: Date;
     token: string;
     path: string;
@@ -29,9 +29,15 @@ interface PhotoModel {
     basename: string;
 }
 
-interface ResponseProductModel {
+export interface ResponseProductModel {
     message: string | undefined;
     data: ProductModel[] | [];
+    pagination: PaginationModel;
 }
 
-export type { ResponseProductModel, ProductModel, CategoryModel, PhotoModel };
+export interface PaginationModel {
+    size: number;
+    total_item: number;
+    page: number;
+    total_page: number;
+}

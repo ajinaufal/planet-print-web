@@ -1,6 +1,7 @@
 import { ResponseFailedModel } from '@/data/models/responses/response_failed_model';
 import {
     CategoryModel,
+    PaginationModel,
     PhotoModel,
     ProductModel,
     ResponseProductModel,
@@ -9,10 +10,12 @@ import {
 export class ResponseProductEntities {
     message: string | undefined;
     data: ProductEntities[] = [];
+    pagination: PaginationEntities;
 
     constructor(data: ResponseProductModel) {
         this.data = (data.data || []).map((product) => new ProductEntities(product));
         this.message = data.message;
+        this.pagination = new PaginationEntities(data.pagination);
     }
 }
 
@@ -74,5 +77,19 @@ class CategoryEntities {
         this.photo = category.photo;
         this.createdAt = category.createdAt;
         this.updatedAt = category.updatedAt;
+    }
+}
+
+class PaginationEntities {
+    size: number;
+    totalItem: number;
+    page: number;
+    totalPage: number;
+
+    constructor(pagination: PaginationModel) {
+        this.size = pagination.size;
+        this.totalItem = pagination.total_item;
+        this.page = pagination.page;
+        this.totalPage = pagination.total_page;
     }
 }

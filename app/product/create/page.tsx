@@ -234,7 +234,12 @@ export default function Products() {
                         value={inputSpesificationProduct}
                     />
                 </FrameInputsComponent>
-                <button onClick={createSubmit}>Submit</button>
+                <button
+                    className="shadow-md mt-2 bg-[#EC5800] px-3 py-2 rounded-md text-white text-sm cursor-pointer"
+                    onClick={createSubmit}
+                >
+                    Submit
+                </button>
             </div>
         </Layouts>
     );

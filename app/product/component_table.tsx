@@ -1,16 +1,27 @@
 import Table from '@/components/table/table_component';
 import { ProductEntities } from '@/domain/entities/response/product_entities';
 import TableTileProduct from './component_tile_table';
-import PaginationProduct from './PaginationProduct';
+import Pagination from '@/components/table/pagination_component';
+import { Dispatch, SetStateAction } from 'react';
 
 export default function TableProduct({
     products,
-    clickDelete,
     listHeader,
+    currentSize,
+    totalPage,
+    currentPage,
+    changeSize,
+    clickDelete,
+    changePage,
 }: {
     products: ProductEntities[];
-    clickDelete: (token: string) => Promise<void>;
     listHeader: string[];
+    currentSize: number;
+    totalPage: number;
+    currentPage: number;
+    changeSize: (size: number) => Promise<void>;
+    changePage: (size: number) => Promise<void>;
+    clickDelete: (token: string) => Promise<void>;
 }) {
     return (
         <Table
@@ -22,7 +33,15 @@ export default function TableProduct({
             body={products.map((product) => (
                 <TableTileProduct product={product} clickDelete={clickDelete} />
             ))}
-            pagination={<PaginationProduct />}
+            pagination={
+                <Pagination
+                    changeSize={changeSize}
+                    currentSize={currentSize}
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    changePage={changePage}
+                />
+            }
         />
     );
 }
