@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosStatic } from 'axios';
 import { getCookie } from './cookie_service';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 class ApiService {
     private axiosInstance: AxiosInstance;
@@ -19,21 +19,13 @@ class ApiService {
 
         this.axiosInstance.interceptors.response.use(
             (response) => response,
-            (error) => this.observer(error.response)
+            (error) => error.response
         );
 
         this.axiosInstance.interceptors.request.use(
             (config) => config,
             (error) => Promise.reject(error)
         );
-    }
-
-    private async observer(response: AxiosResponse<any, any>) {
-        if (response.status === 401) {
-            const router = useRouter();
-            router.push('/login');
-        }
-        return response;
     }
 
     public updateContentType(contentType?: string) {
@@ -46,7 +38,7 @@ class ApiService {
     }
 
     public async get(url: string): Promise<AxiosResponse<any, any>> {
-        const response = this.axiosInstance.get(url);
+        const response = await this.axiosInstance.get(url);
         return response;
     }
 

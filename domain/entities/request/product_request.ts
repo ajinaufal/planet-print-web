@@ -2,8 +2,8 @@ import { RequestProductsModel } from '@/data/models/requests/request_products_mo
 
 const initial = {
     id: undefined,
-    page: 1,
-    size: 10,
+    page: undefined,
+    size: undefined,
 };
 
 export class ProductRequestEntities {

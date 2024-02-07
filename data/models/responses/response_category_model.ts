@@ -1,15 +1,24 @@
 interface CategoryDataModel {
-    token: string;
-    name: string;
-    photo: string;
-    total_product: number;
-    updated_at: string;
+    token: string | undefined;
+    name: string | undefined;
+    photo: CategoryPhotoModel | undefined;
+    total_product: number | undefined;
+    updated_at: string | undefined;
 }
 
 interface ResponseCategoryModel {
-    message: string;
+    message: string | undefined;
     data: CategoryDataModel[];
 }
 
-export type { CategoryDataModel,
-    ResponseCategoryModel };
+interface CategoryPhotoModel {
+    token: string | undefined;
+    path: string | undefined;
+    name: string | undefined;
+    type: string | undefined;
+    size: string | undefined;
+    basename: string | undefined;
+    createdAt: string | undefined;
+}
+
+export type { CategoryDataModel, ResponseCategoryModel, CategoryPhotoModel };

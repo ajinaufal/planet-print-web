@@ -6,6 +6,7 @@ import { ResponseProductDeleteModel } from '@/data/models/responses/response_pro
 import { ResponseProductModel } from '@/data/models/responses/response_products_model';
 import { ErrorHandler } from '@/domain/entities/error/server_error';
 import ApiService from '@/service/api_service';
+import { useRouter } from 'next/navigation';
 
 class ProductRemoteDatasource {
     static async getProducts(params: RequestProductsModel): Promise<ResponseProductModel> {
@@ -15,7 +16,6 @@ class ProductRemoteDatasource {
             if (resp.status === 200) return resp.data;
             throw new ErrorHandler(resp.status, resp.data.message);
         } catch (e) {
-            console.log('get product :', e);
             throw new ErrorHandler(500, `${e}`, 'Network Error');
         }
     }
@@ -28,7 +28,6 @@ class ProductRemoteDatasource {
             if (resp.status === 200) return resp.data;
             throw new ErrorHandler(resp.status, resp.data.message);
         } catch (e) {
-            console.log('create product :', e);
             throw new ErrorHandler(500, `${e}`, 'Network Error');
         }
     }
@@ -42,7 +41,6 @@ class ProductRemoteDatasource {
             if (resp.status === 200) return resp.data;
             throw new ErrorHandler(resp.status, resp.data.message);
         } catch (e) {
-            console.log('create product :', e);
             throw new ErrorHandler(500, `${e}`, 'Network Error');
         }
     }
